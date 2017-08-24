@@ -16,7 +16,9 @@
   },
   "devDependencies": {
     "browser-sync": "^2.18.13",
+    "express-session": "^1.15.5",
     "gulp-livereload": "^3.8.1",
-    "gulp-nodemon": "^2.2.1"
+    "gulp-nodemon": "^2.2.1",
+    "mysql": "^2.14.1"
   }
 }

@@ -5,6 +5,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 //匯入router模組
 var index = require('./routes/index');
@@ -27,9 +28,21 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+// parse application/json
 app.use(bodyParser.json());
+// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
+//啟用cookie parser
 app.use(cookieParser());
+
+app.use(
+  session({
+    secret:'cupola360',
+    name:'copola360SessionId',
+    cookie:{maxAge:30*60*1000},
+    resave: false,
+    saveUninitialized: true
+  }));
 
 //4.x開始
 app.use(express.static(path.join(__dirname, 'public')));
