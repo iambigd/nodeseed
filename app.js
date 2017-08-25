@@ -1,3 +1,5 @@
+/*應用程式啟動點*/
+
 // 匯入外部 Node.js 模組，
 var express = require('express');
 var path = require('path');
