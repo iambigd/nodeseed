@@ -1,7 +1,17 @@
 環境準備
+=============
 
-安裝package
+##### 下載專案
+git clone 
 
-sudo
+##### 安裝package
+sudo npm install
 
+##### 啟動
 sudo gulp
+
+
+License
+==============
+
+MIT

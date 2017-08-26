@@ -1,25 +1,37 @@
-var db = require('../database/db.js');
+var authModel = require('../models/authModel.js');
 
+var authCtrl = {};
 
-var auth = {};
-
-auth.login = function(req, res) {
+authCtrl.login = function(req, res) {
     
     console.log('login');
+
+    var postBody = req.body;
+    console.log('email:' + postBody.email);
+    console.log('password:' + postBody.password);
     
-    // console.log(req.body);
-    db.query('select * from users where email=? and password=?', ['ken.tsai@emelexplorer.com', '11111111'], function(err, recordset) {
-        if (err) {
-            console.log(err);
-            res.json({
-                status: 404
-            });
-        }
-        //send records as a response
-        res.json({
-            status: 200
+    authModel.login(
+        postBody.email,
+        postBody.password,
+        function (err,rows) {
+            // body...
+            if(err){
+                console.log(err)
+                return;
+            }
+
+            console.log(rows);
+
+            if(rows.length == 0){
+                res.json({
+                    status:404
+                });
+            }else{
+                res.json(rows[0]);
+            }
+            
+
         });
-    });
 }
 
-module.exports = auth;
+module.exports = authCtrl;
