@@ -9,7 +9,7 @@ authCtrl.login = function(req, res) {
     var postBody = req.body;
     console.log('email:' + postBody.email);
     console.log('password:' + postBody.password);
-    
+
     authModel.login(
         postBody.email,
         postBody.password,
@@ -20,7 +20,7 @@ authCtrl.login = function(req, res) {
                 return;
             }
 
-            console.log(rows);
+            // console.log(rows);
 
             if(rows.length == 0){
                 res.json({
@@ -28,9 +28,9 @@ authCtrl.login = function(req, res) {
                 });
             }else{
                 res.json(rows[0]);
-            }
-            
 
+                //create a session/or jwt token
+            }
         });
 }
 
