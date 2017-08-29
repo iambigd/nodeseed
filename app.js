@@ -15,15 +15,23 @@ var users = require('./routes/users');
 var hello = require('./routes/hello');
 var api = require('./routes/api');
 
+
 // 匯入 Express.js 模組
 var app = express();
 
 /*
 all environments
 */
+// DB連線
+// app.use(function(req, res, next) {
+//     req.db = db;
+//     next();
+// });
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+// app.set('view engine', 'ejs');
 
 // 呼叫 use() 函數，來載入（使用）Middleware，Express.js Middleware 的觀念後續再做說明
 

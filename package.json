@@ -19,6 +19,7 @@
     "express-session": "^1.15.5",
     "gulp-livereload": "^3.8.1",
     "gulp-nodemon": "^2.2.1",
-    "mysql": "^2.14.1"
+    "mysql": "^2.14.1",
+    "winston": "^2.3.1"
   }
 }
