@@ -9,15 +9,19 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
+//middle ware
+var appLogger = require('./middleware/logger/logger.js');
+
 //匯入router模組
 var index = require('./routes/index');
 var users = require('./routes/users');
 var hello = require('./routes/hello');
-var api = require('./routes/api');
+var appRouters = require('./routes/routers');
 
 
 // 匯入 Express.js 模組
 var app = express();
+
 
 /*
 all environments
@@ -28,12 +32,14 @@ all environments
 //     next();
 // });
 
-// view engine setup
+app.logger  =appRouters;
+/// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 // app.set('view engine', 'ejs');
 
-// 呼叫 use() 函數，來載入（使用）Middleware，Express.js Middleware 的觀念後續再做說明
+// 呼叫 use() 函數，
+//來載入（使用）Middleware，Express.js Middleware 的觀念後續再做說明
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -54,20 +60,23 @@ app.use(
     saveUninitialized: true
   }));
 
-//4.x開始
+///4.x開始
 app.use(express.static(path.join(__dirname, 'public')));
 
-//routers
+///routers
 app.use('/', index);
 app.use('/users', users);
 app.use('/hello', hello);
-app.use('/api',api);
+// app.use('/apis',apis);
+app.use('/',appRouters);
 
-// catch 404 and forward to error handler
+/// catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  console.error('not found');
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
+
 });
 
 // error handler
@@ -83,6 +92,7 @@ app.use(function(err, req, res, next) {
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
+    console.log('catch 404 and forward to error handler');
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -111,6 +121,20 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+app.use('/api/', function(req, res, next) {
+  console.log('check /api/ router');
+  var contype = req.headers['content-type'];
+  if (!contype || contype.indexOf('application/json') !== 0){
+      res.status = 400;
+      return res.json({
+        'message':'cannot find content-type: application/json'
+      });
+    
+  }
+  next();
+});
+
 
 //沒加這個nodemon會死
 var server = 
