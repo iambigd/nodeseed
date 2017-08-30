@@ -9,9 +9,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
-//middle ware
-var appLogger = require('./middleware/logger/logger.js');
-
 //匯入router模組
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -21,7 +18,6 @@ var appRouters = require('./routes/routers');
 
 // 匯入 Express.js 模組
 var app = express();
-
 
 /*
 all environments

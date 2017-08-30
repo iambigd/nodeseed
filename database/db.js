@@ -3,6 +3,7 @@ var mysql = require('mysql');
 var dbClient = {};
 var conn;
 
+console.log('run db module');
 // 資料庫連線
 //只需要執行一次=>與end()重覆執行都會爆錯
 //Cannot enqueue Handshake after invoking quit 
