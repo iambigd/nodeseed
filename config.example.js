@@ -4,21 +4,22 @@ exports.port = process.env.PORT || 3000;
 exports.mongodb = {
   uri: process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'localhost/makeeapi'
 };
+exports.authentication = {
+  header: 'x-access-token',
+  jwtSecret: "nodeseed1688999",
+  jwtSession: {
+        session: false
+  }
+};
 exports.mysql = {
   host: 'localhost',
   user: '',
   password: '',
-  database: 'myapp'
+  database: 'nodeseed'
 };
 exports.companyName = 'WTF';
 exports.projectName = 'nodejsseed';
 exports.systemEmail = 'bigdstut@gmail.com';
-exports.cryptoKey = 'k3yb0ardc4t';
-exports.loginAttempts = {
-  forIp: 50,
-  forIpAndUser: 7,
-  logExpiration: '20m'
-};
 exports.smtp = {
   from: {
     name: process.env.SMTP_FROM_NAME || exports.projectName +' Website',

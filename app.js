@@ -8,13 +8,17 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var passport = require('passport');
 
 //匯入router模組
 var index = require('./routes/index');
 var users = require('./routes/users');
 var hello = require('./routes/hello');
+
 var appRouters = require('./routes/routers');
 
+var config = require('./config');
+var auth = require('./middleware/auth/auth');
 
 // 匯入 Express.js 模組
 var app = express();
@@ -65,6 +69,8 @@ app.use('/users', users);
 app.use('/hello', hello);
 // app.use('/apis',apis);
 app.use('/',appRouters);
+
+app.use(auth.initialize);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -117,20 +123,6 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
-app.use('/api/', function(req, res, next) {
-  console.log('check /api/ router');
-  var contype = req.headers['content-type'];
-  if (!contype || contype.indexOf('application/json') !== 0){
-      res.status = 400;
-      return res.json({
-        'message':'cannot find content-type: application/json'
-      });
-    
-  }
-  next();
-});
-
 
 //沒加這個nodemon會死
 var server = 

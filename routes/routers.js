@@ -1,5 +1,11 @@
 /*簡單的api範例*/
 var express = require('express');
+var config = require('../config');
+// var authJwt = require('../middleware/auth/authJwt');
+
+var auth = require('../middleware/auth/auth');
+
+//載入router
 var router = express.Router();
 
 //載入控制器
@@ -27,7 +33,7 @@ var usersCtrl = require('../controllers/usersCtrl');
 //     });
 router.route('/apis/auth/login')
     .post(authCtrl.login);
-    
+
 /***
  *     /$$      /$$ /$$$$$$$$  /$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$$$
  *    | $$$    /$$$| $$_____/ /$$__  $$ /$$__  $$ /$$__  $$ /$$__  $$| $$_____/
@@ -50,10 +56,10 @@ router.route('/apis/messages')
 
 //單一訊息
 //使用網址path的方式，帶入指定物件的id
-router.route('/apis/messages/:id') 
-.get(messagesCtrl.read)
-.put(messagesCtrl.update)
-.delete(messagesCtrl.delete);
+router.route('/apis/messages/:id')
+    .get(messagesCtrl.read)
+    .put(messagesCtrl.update)
+    .delete(messagesCtrl.delete);
 
 /***
  *     /$$   /$$  /$$$$$$  /$$$$$$$$ /$$$$$$$   /$$$$$$ 
@@ -69,9 +75,9 @@ router.route('/apis/messages/:id')
  *                                                      
  *                                                      
  */
-
+// router.route('/apis/users/:userId')
+    // .get(usersCtrl.getUserById);
 router.route('/apis/users/:userId')
-    .get(usersCtrl.getUserById);
-
+    .get(auth.jwt,usersCtrl.getUserById);
 
 module.exports = router;

@@ -1,5 +1,7 @@
-var authModel = require('../models/authModel.js');
+var jwt = require("jwt-simple");
 
+var authModel = require('../models/authModel.js');
+var config = require('../config');
 
 var authCtrl = {};
 
@@ -29,10 +31,22 @@ authCtrl.login = function(req, res) {
                 });
             } else {
 
-                res.json(rows[0]);
+                // res.json(rows[0]);
 
+                var userInfo = rows[0];
                 //create a session/or jwt token
+                var payload = {
+                    id: userInfo.id
+                };
+                var token = jwt.encode(
+                    payload, 
+                    config.authentication.jwtSecret);
 
+                // console.log(token);   
+                 
+                res.json({
+                    token: token
+                });
             }
         });
 }

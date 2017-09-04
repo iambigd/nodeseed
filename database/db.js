@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var config = require('../config')
 
 var dbClient = {};
 var conn;
@@ -11,11 +12,11 @@ dbClient.connect = function() {
 
     // 資料庫設定
     conn = mysql.createConnection({
-        user: 'demo',
-        password: '1688999',
-        host: '127.0.0.1',
-        port: '3306',
-        database: 'nodeseed'
+        user: config.mysql.user,
+        password: config.mysql.password,
+        host: config.mysql.host,
+        port: config.mysql.port,
+        database: config.mysql.database
     });
 
     conn.on('error', function(err) {

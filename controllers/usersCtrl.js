@@ -1,11 +1,11 @@
-var usersModel = require('../models/usersModel.js');
-
+var usersModel = require('../models/usersModel');
 
 var users = {};
 
 
-users.getUserById = function(req, res) {
+users.getUserById = function(req, res,next) {
     
+
     var userId = req.params.userId;
 
     console.log('getUserById', 'uesr id:' + userId);

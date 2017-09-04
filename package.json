@@ -19,7 +19,10 @@
     "express-session": "^1.15.5",
     "gulp-livereload": "^3.8.1",
     "gulp-nodemon": "^2.2.1",
+    "jwt-simple": "^0.5.1",
     "mysql": "^2.14.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.0",
     "winston": "^2.3.1"
   }
 }
