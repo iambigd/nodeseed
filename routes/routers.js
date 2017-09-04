@@ -78,6 +78,6 @@ router.route('/apis/messages/:id')
 // router.route('/apis/users/:userId')
     // .get(usersCtrl.getUserById);
 router.route('/apis/users/:userId')
-    .get(auth.jwt,usersCtrl.getUserById);
+    .get(auth.verifyJwt,usersCtrl.getUserById);
 
 module.exports = router;

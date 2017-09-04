@@ -7,7 +7,8 @@ var authModel = {};
 authModel.login = function(email, password, cb) {
     // console.log('login: %s,%s', email, password);
     
-    logger.log('error','login');
+    logger.log('info','login');
+    
     db.connect();
     db.query('select * from users where email=? and pwd=?', [email, password],
         function(err, rows) {

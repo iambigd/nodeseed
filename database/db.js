@@ -1,4 +1,7 @@
 var mysql = require('mysql');
+
+var logger = require('../middleware/logger/logger').create('db');
+
 var config = require('../config')
 
 var dbClient = {};
@@ -20,15 +23,17 @@ dbClient.connect = function() {
     });
 
     conn.on('error', function(err) {
-        console.log(err.code); // 'ER_BAD_DB_ERROR'
+        // console.log(err.code); // 'ER_BAD_DB_ERROR'
+        logger.log('error',err.code);
     });
 
     conn.connect(function(err) {
         if (err) {
-            console.error('error connecting: ' + err.stack);
+            // console.error('error connecting: ' + err.stack);
+             logger.log('error','error connecting: ' + err.stack);
             return;
         }
-        console.log('mysql connected as thread-pid: ' + conn.threadId);
+        logger.log('info','mysql connected as thread-pid: ' + conn.threadId);
     });
 
 }

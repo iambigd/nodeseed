@@ -9,7 +9,7 @@ usersModel.create = function() {
 }
 
 usersModel.getUserById = function(userId, cb) {
-    logger.log('getUserById', 'userId: ' + userId);
+    logger.log('info', 'getUserById: ' + userId);
     db.connect();
     db.query('select * from users where id=?', [userId],
         function(err, rows) {

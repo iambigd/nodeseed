@@ -1,5 +1,6 @@
-var jwt = require("jwt-simple");
-
+var jwt = require('jwt-simple');
+var moment = require('moment');
+var logger = require('../middleware/logger/logger').create('authCtrl');
 var authModel = require('../models/authModel.js');
 var config = require('../config');
 
@@ -7,11 +8,10 @@ var authCtrl = {};
 
 authCtrl.login = function(req, res) {
 
-    // console.log('login');
-    // logger.log('info', "login");
+    logger.log('info', "login");
     var postBody = req.body;
-    console.log('email:' + postBody.email);
-    console.log('password:' + postBody.password);
+    // console.log('email:' + postBody.email);
+    // console.log('password:' + postBody.password);
 
     authModel.login(
         postBody.email,
@@ -35,17 +35,21 @@ authCtrl.login = function(req, res) {
 
                 var userInfo = rows[0];
                 //create a session/or jwt token
+                var expires = moment().add('days', 7).valueOf();
                 var payload = {
-                    id: userInfo.id
+                    id: userInfo.id,
+                    // iss: userInfo.id,
+                    exp: expires
                 };
                 var token = jwt.encode(
-                    payload, 
+                    payload,
                     config.authentication.jwtSecret);
 
                 // console.log(token);   
-                 
+
                 res.json({
-                    token: token
+                    token: token,
+                    exp: expires
                 });
             }
         });

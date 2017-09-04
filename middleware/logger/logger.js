@@ -25,7 +25,7 @@ logger.create = function(moduleName) {
 
                     return '[' + timeFormat + '] [' + options.level.toUpperCase() + '] [' +
                         moduleName +
-                        ']' +
+                        '] ' +
                         (options.message ? options.message : '') +
                         (options.meta && Object.keys(options.meta).length ? '\n\t' + JSON.stringify(options.meta) : '');
                 }
