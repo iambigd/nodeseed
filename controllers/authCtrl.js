@@ -1,5 +1,7 @@
 var jwt = require('jwt-simple');
 var moment = require('moment');
+var expressValidator = require('express-validator');
+
 var logger = require('../middleware/logger/logger').create('authCtrl');
 var authModel = require('../models/authModel.js');
 var config = require('../config');

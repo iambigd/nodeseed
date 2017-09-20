@@ -17,6 +17,7 @@
   "devDependencies": {
     "browser-sync": "^2.18.13",
     "express-session": "^1.15.5",
+    "express-validator": "^4.1.1",
     "gulp-livereload": "^3.8.1",
     "gulp-nodemon": "^2.2.1",
     "jwt-simple": "^0.5.1",
